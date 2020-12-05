@@ -1,11 +1,9 @@
-import json
-
 import xlrd
 import xlsxwriter as xlsxwriter
-import xlwt
 
 
 def readexcel(FileName):
+
     allData = {}
 
     workbook = xlrd.open_workbook(FileName)
@@ -32,7 +30,7 @@ def readexcel(FileName):
         for i in range(1, nrows):
 
             # 异常数据
-            if i >= nrows - 1:
+            if i == nrows - 1:
                 row_data = sheet.row_values(i)
                 # 组建每一行数据的字典
                 row_data_dict = {}
@@ -84,7 +82,11 @@ def readexcel(FileName):
 
         allData[sheet_name] = data
 
-    book = xlsxwriter.Workbook('111111.xls')  # 创建一个工作簿
+    return allData
+
+
+def writeexcel(allData, name):
+    book = xlsxwriter.Workbook(name)  # 创建一个工作簿
 
     for allkey in allData.keys():
         value = allData[allkey]
@@ -99,14 +101,15 @@ def readexcel(FileName):
 
                 if i == len(value) - 1:
                     # 添加一行title
-                    sheet.write(i+1, a, key)
-                    sheet.write(i+2, a, row_data.get(key))
+                    sheet.write(i + 1, a, key)
+                    sheet.write(i + 2, a, row_data.get(key))
                 else:
-                    sheet.write(i+1, a, row_data.get(key))
+                    sheet.write(i + 1, a, row_data.get(key))
                 a += 1
 
     book.close()
 
 
 if __name__ == '__main__':
-    readexcel(r'HUAWEI.xlsx')
+    data = readexcel(r'files/HONOR.xlsx')
+    writeexcel(data, r'files/HONOR_convert.xlsx')
