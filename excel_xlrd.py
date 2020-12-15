@@ -111,5 +111,5 @@ def writeexcel(allData, name):
 
 
 if __name__ == '__main__':
-    data = readexcel(r'files/HONOR.xlsx')
-    writeexcel(data, r'files/HONOR_convert.xlsx')
+    data = readexcel(r'files/HUAWEI.xlsx')
+    writeexcel(data, r'files/HUAWEI_convert.xlsx')
